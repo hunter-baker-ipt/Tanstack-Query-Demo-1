@@ -4,7 +4,6 @@ import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import React, { Suspense, useCallback } from 'react'
 import ProductionDevtools from '../productionDevtools/ProductionDevtools'
 
-// const ProductionDevtools = React.lazy(() => import('../productionDevtools/ProductionDevtools'))
 
 const Header = () => {
     const { userAuth } = Route.useRouteContext()
@@ -19,7 +18,6 @@ const Header = () => {
         <Link to='/about'>About</Link>
         <Link to='/contact'>Contact</Link>
         <Link to='/users'>Users</Link>
-        {/* <Link to='/well2'>Well2</Link> */}
         {userAuth.isAuthenticated && <>
             <button onClick={logout}>Logout</button>
         </>}
@@ -32,22 +30,8 @@ const Footer = () => {
     </div>
 }
 
-// const TanstackRouterDevtoolsProduction = React.lazy(() =>
-//   import('@tanstack/react-router-devtools').then(
-//     (d) => ({
-//       default: d.TanStackRouterDevtoolsInProd,
-//     }),
-//   ),
-// )
 
 const RootComponent = () => {
-
-    //   const [showProductionDevtools, setShowProductionDevtools] = React.useState(false)
-
-    //   React.useEffect(() => {
-    //     // @ts-expect-error
-    //     window.toggleDevtools2 = () => setShowProductionDevtools((old) => !old)
-    //   }, [])
 
     return <>
         <Header />

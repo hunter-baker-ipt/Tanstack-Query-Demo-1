@@ -1,7 +1,7 @@
-import { createLazyFileRoute, useNavigate } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useCallback } from 'react'
 
-export const Route = createLazyFileRoute('/contact')({
+export const Route = createFileRoute('/contact')({
     component: RouteComponent,
 })
 

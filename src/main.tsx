@@ -46,25 +46,6 @@ const router = createRouter({
   scrollRestoration: true,
   defaultStructuralSharing: true,
   defaultPreloadStaleTime: 50000,
-
-  defaultNotFoundComponent: () => <div>40404040404 not found</div>,
-
-  stringifySearch: ((value) => {
-    // console.log('stringifySearch', value)
-    const stringified = JSON.stringify(value)
-    if (_.isEmpty(value)) {
-      return ''
-    }
-    return '?unifiedSearchParam=' + encodeToBinary(JSON.stringify(value))
-  }),
-  parseSearch: (value) => {
-    console.log('parseSearch')
-    const stripped = value.replace('?unifiedSearchParam=', '')
-    if (stripped.length == 0) {
-      return {}
-    }
-    return JSON.parse(decodeFromBinary(stripped))
-  },
 })
 
 

@@ -12,8 +12,6 @@ export const Route = createFileRoute('/_userAuthed')({
       })
     }
 
-    
-
   },
   loader: () => {
     // return { aaa: 'aaa' }

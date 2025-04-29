@@ -8,42 +8,36 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from '@tanstack/react-router'
-
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as LoginImport } from './routes/login'
+import { Route as ContactImport } from './routes/contact'
+import { Route as AboutImport } from './routes/about'
 import { Route as UserAuthedRouteImport } from './routes/_userAuthed/route'
 import { Route as IndexImport } from './routes/index'
 import { Route as UserAuthedWell1RouteImport } from './routes/_userAuthed/well1/route'
 import { Route as UserAuthedUsersIndexImport } from './routes/_userAuthed/users/index'
-import { Route as UserAuthedRigIndexImport } from './routes/_userAuthed/rig/index'
 import { Route as UserAuthedWell2WellIDImport } from './routes/_userAuthed/well2/$wellID'
 import { Route as UserAuthedWell1WellIDImport } from './routes/_userAuthed/well1/$wellID'
 
-// Create Virtual Routes
-
-const ContactLazyImport = createFileRoute('/contact')()
-const AboutLazyImport = createFileRoute('/about')()
-
 // Create/Update Routes
-
-const ContactLazyRoute = ContactLazyImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/contact.lazy').then((d) => d.Route))
-
-const AboutLazyRoute = AboutLazyImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/about.lazy').then((d) => d.Route))
 
 const LoginRoute = LoginImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ContactRoute = ContactImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AboutRoute = AboutImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -67,12 +61,6 @@ const UserAuthedWell1RouteRoute = UserAuthedWell1RouteImport.update({
 const UserAuthedUsersIndexRoute = UserAuthedUsersIndexImport.update({
   id: '/users/',
   path: '/users/',
-  getParentRoute: () => UserAuthedRouteRoute,
-} as any)
-
-const UserAuthedRigIndexRoute = UserAuthedRigIndexImport.update({
-  id: '/rig/',
-  path: '/rig/',
   getParentRoute: () => UserAuthedRouteRoute,
 } as any)
 
@@ -106,25 +94,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserAuthedRouteImport
       parentRoute: typeof rootRoute
     }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginImport
-      parentRoute: typeof rootRoute
-    }
     '/about': {
       id: '/about'
       path: '/about'
       fullPath: '/about'
-      preLoaderRoute: typeof AboutLazyImport
+      preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
     '/contact': {
       id: '/contact'
       path: '/contact'
       fullPath: '/contact'
-      preLoaderRoute: typeof ContactLazyImport
+      preLoaderRoute: typeof ContactImport
+      parentRoute: typeof rootRoute
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
     '/_userAuthed/well1': {
@@ -146,13 +134,6 @@ declare module '@tanstack/react-router' {
       path: '/well2/$wellID'
       fullPath: '/well2/$wellID'
       preLoaderRoute: typeof UserAuthedWell2WellIDImport
-      parentRoute: typeof UserAuthedRouteImport
-    }
-    '/_userAuthed/rig/': {
-      id: '/_userAuthed/rig/'
-      path: '/rig'
-      fullPath: '/rig'
-      preLoaderRoute: typeof UserAuthedRigIndexImport
       parentRoute: typeof UserAuthedRouteImport
     }
     '/_userAuthed/users/': {
@@ -181,14 +162,12 @@ const UserAuthedWell1RouteRouteWithChildren =
 interface UserAuthedRouteRouteChildren {
   UserAuthedWell1RouteRoute: typeof UserAuthedWell1RouteRouteWithChildren
   UserAuthedWell2WellIDRoute: typeof UserAuthedWell2WellIDRoute
-  UserAuthedRigIndexRoute: typeof UserAuthedRigIndexRoute
   UserAuthedUsersIndexRoute: typeof UserAuthedUsersIndexRoute
 }
 
 const UserAuthedRouteRouteChildren: UserAuthedRouteRouteChildren = {
   UserAuthedWell1RouteRoute: UserAuthedWell1RouteRouteWithChildren,
   UserAuthedWell2WellIDRoute: UserAuthedWell2WellIDRoute,
-  UserAuthedRigIndexRoute: UserAuthedRigIndexRoute,
   UserAuthedUsersIndexRoute: UserAuthedUsersIndexRoute,
 }
 
@@ -199,26 +178,24 @@ const UserAuthedRouteRouteWithChildren = UserAuthedRouteRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof UserAuthedRouteRouteWithChildren
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/login': typeof LoginRoute
-  '/about': typeof AboutLazyRoute
-  '/contact': typeof ContactLazyRoute
   '/well1': typeof UserAuthedWell1RouteRouteWithChildren
   '/well1/$wellID': typeof UserAuthedWell1WellIDRoute
   '/well2/$wellID': typeof UserAuthedWell2WellIDRoute
-  '/rig': typeof UserAuthedRigIndexRoute
   '/users': typeof UserAuthedUsersIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof UserAuthedRouteRouteWithChildren
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/login': typeof LoginRoute
-  '/about': typeof AboutLazyRoute
-  '/contact': typeof ContactLazyRoute
   '/well1': typeof UserAuthedWell1RouteRouteWithChildren
   '/well1/$wellID': typeof UserAuthedWell1WellIDRoute
   '/well2/$wellID': typeof UserAuthedWell2WellIDRoute
-  '/rig': typeof UserAuthedRigIndexRoute
   '/users': typeof UserAuthedUsersIndexRoute
 }
 
@@ -226,13 +203,12 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/_userAuthed': typeof UserAuthedRouteRouteWithChildren
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/login': typeof LoginRoute
-  '/about': typeof AboutLazyRoute
-  '/contact': typeof ContactLazyRoute
   '/_userAuthed/well1': typeof UserAuthedWell1RouteRouteWithChildren
   '/_userAuthed/well1/$wellID': typeof UserAuthedWell1WellIDRoute
   '/_userAuthed/well2/$wellID': typeof UserAuthedWell2WellIDRoute
-  '/_userAuthed/rig/': typeof UserAuthedRigIndexRoute
   '/_userAuthed/users/': typeof UserAuthedUsersIndexRoute
 }
 
@@ -241,37 +217,34 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | ''
-    | '/login'
     | '/about'
     | '/contact'
+    | '/login'
     | '/well1'
     | '/well1/$wellID'
     | '/well2/$wellID'
-    | '/rig'
     | '/users'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | ''
-    | '/login'
     | '/about'
     | '/contact'
+    | '/login'
     | '/well1'
     | '/well1/$wellID'
     | '/well2/$wellID'
-    | '/rig'
     | '/users'
   id:
     | '__root__'
     | '/'
     | '/_userAuthed'
-    | '/login'
     | '/about'
     | '/contact'
+    | '/login'
     | '/_userAuthed/well1'
     | '/_userAuthed/well1/$wellID'
     | '/_userAuthed/well2/$wellID'
-    | '/_userAuthed/rig/'
     | '/_userAuthed/users/'
   fileRoutesById: FileRoutesById
 }
@@ -279,17 +252,17 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   UserAuthedRouteRoute: typeof UserAuthedRouteRouteWithChildren
+  AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
   LoginRoute: typeof LoginRoute
-  AboutLazyRoute: typeof AboutLazyRoute
-  ContactLazyRoute: typeof ContactLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   UserAuthedRouteRoute: UserAuthedRouteRouteWithChildren,
+  AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
   LoginRoute: LoginRoute,
-  AboutLazyRoute: AboutLazyRoute,
-  ContactLazyRoute: ContactLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -304,9 +277,9 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/_userAuthed",
-        "/login",
         "/about",
-        "/contact"
+        "/contact",
+        "/login"
       ]
     },
     "/": {
@@ -317,18 +290,17 @@ export const routeTree = rootRoute
       "children": [
         "/_userAuthed/well1",
         "/_userAuthed/well2/$wellID",
-        "/_userAuthed/rig/",
         "/_userAuthed/users/"
       ]
     },
-    "/login": {
-      "filePath": "login.tsx"
-    },
     "/about": {
-      "filePath": "about.lazy.tsx"
+      "filePath": "about.tsx"
     },
     "/contact": {
-      "filePath": "contact.lazy.tsx"
+      "filePath": "contact.tsx"
+    },
+    "/login": {
+      "filePath": "login.tsx"
     },
     "/_userAuthed/well1": {
       "filePath": "_userAuthed/well1/route.tsx",
@@ -343,10 +315,6 @@ export const routeTree = rootRoute
     },
     "/_userAuthed/well2/$wellID": {
       "filePath": "_userAuthed/well2/$wellID.tsx",
-      "parent": "/_userAuthed"
-    },
-    "/_userAuthed/rig/": {
-      "filePath": "_userAuthed/rig/index.tsx",
       "parent": "/_userAuthed"
     },
     "/_userAuthed/users/": {

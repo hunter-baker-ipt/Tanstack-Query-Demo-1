@@ -9,7 +9,7 @@ export const Route = createFileRoute('/_userAuthed/users/')({
     component: RouteComponent,
     loader: ({ context: { queryClient } }) => {
         // optional, but improves UX
-        // queryClient.prefetchQuery(fetchUserHeadersQueryOptions)
+        queryClient.prefetchQuery(fetchUserHeadersQueryOptions)
     }
 })
 
@@ -50,7 +50,6 @@ const UserTableRow: FC<{ userHeader: UserHeader | AddOrUpdateUserAccountInput }>
             {userHeader.Name}
         </div>
         {isExpanded
-            // ? <UserTableDetails userID={userHeader.ID} />
             ? <Suspense><UserTableDetails userID={userHeader.ID} /></Suspense>
             : null
         }
@@ -75,7 +74,7 @@ function RouteComponent() {
     const { data: userHeaders } = useSuspenseQuery(fetchUserHeadersQueryOptions)
 
     const createUserMutationRegular = useMutation({
-        mutationKey: ['createUser'],
+        // mutationKey: ['createUser'],
         mutationFn: postCreateUserWithProperError,
         onSuccess: () => queryClient.invalidateQueries({ queryKey: fetchUserHeadersQueryOptions.queryKey }),
     })

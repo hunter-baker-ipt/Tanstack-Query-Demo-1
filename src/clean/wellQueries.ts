@@ -10,8 +10,6 @@ export const wellNavNodesQueryOptions = queryOptions({
     staleTime: 50000,
 })
 
-
-
 export const wellDetailsQueryOptions = (wellAccessToken: string) => {
     const wellID = getWellIDFromAuthToken(wellAccessToken)
 

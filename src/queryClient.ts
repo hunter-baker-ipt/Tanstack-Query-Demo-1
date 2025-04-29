@@ -11,14 +11,9 @@ export const queryClientGlobal = new QueryClient({
     defaultOptions: {
         queries: {
             staleTime: 5000,
-            // refetchOnWindowFocus: true,
         },
         mutations: {
 
         }
-
     },
-    // queryCache: {
-
-    // }
 })

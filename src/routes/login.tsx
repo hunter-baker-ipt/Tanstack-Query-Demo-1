@@ -22,12 +22,7 @@ function RouteComponent() {
   const router = useRouter()
   const { userAuth } = Route.useRouteContext()
 
-  const [cat, setCat] = useState("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imh1bnRlci5iYWtlckBpcHRnbG9iYWwuY29tIiwiaXNzdWVkT24iOjYzODgwODUxMjY5MDAwMDAwMCwiZXhwIjoxNzQ1NTEzNjcwLjB9.XPsUTqgZQmHAitc0AWlfA6qIZLDhnx2VZ_Mv0YG13wg")
-
-  // const login = useCallback(() => {
-  //   user.login('SomeToken', 'Hunter Baker')
-  //   router.invalidate()
-  // }, [])
+  const [cat, setCat] = useState("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imh1bnRlci5iYWtlckBpcHRnbG9iYWwuY29tIiwiaXNzdWVkT24iOjYzODgxMTg5Mzk3MDAwMDAwMCwiZXhwIjoxNzQ1ODUxNzk3LjB9.GXJIzpqOUVi0ILMfXJ9yE0b0_P0b8dPe63B0m2RuSIA")
 
   const realLogin = useCallback(() => {
 
@@ -43,7 +38,6 @@ function RouteComponent() {
 
     promise.then(async (r) => {
 
-      // console.log(r, r.json())
 
       const json = await r.json()
 
@@ -55,7 +49,6 @@ function RouteComponent() {
 
 
 
-    // user.login('SomeToken', 'Hunter Baker')
   }, [cat])
 
   return <>
@@ -63,7 +56,6 @@ function RouteComponent() {
       CAT
       <input value={cat} onChange={e => setCat(e.target.value)} />
     </label>
-    {/* <button onClick={login}>Set AuthToken</button> */}
 
     <button onClick={realLogin}>Do real sureview login</button>
   </>

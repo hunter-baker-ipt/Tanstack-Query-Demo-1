@@ -71,7 +71,6 @@ export const fetchUserHeaders = () => {
         credentials: 'include',
     })
         .then(r => r.json())
-        // .then(json => json.Data as UserHeader[])
         .then(json => json.Data as (UserHeader | AddOrUpdateUserAccountInput)[])
 }
 
